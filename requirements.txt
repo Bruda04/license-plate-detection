@@ -1,3 +1,5 @@
 numpy
+paddleocr
+paddlepaddle
 ultralytics
 torch
