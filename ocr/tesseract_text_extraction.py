@@ -16,7 +16,11 @@ def extract_plate_text(img_input):
     confidences = []
     
     for text, conf in zip(predict['text'], predict['conf']):
-        if conf > 0:  # odbaci -1 i prazno
+        try:
+            conf = int(conf)
+        except ValueError:
+            conf = -1
+        if conf > 0:
             cleaned = re.sub(r'[^A-Z0-9ČĆŽŠĐ]', '', text.upper())
             if cleaned:
                 texts.append(cleaned)
