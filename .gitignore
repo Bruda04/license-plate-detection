@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,pycharm,visualstudiocode,images,executable
 
 # Permit documents folder
-!doc/**/*/.{pdf}
+!doc/**/*.pdf
 
 ### datasets ###
 # Ignore datasets folder
