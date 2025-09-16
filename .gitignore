@@ -1,9 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,pycharm,visualstudiocode,images,executable
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,pycharm,visualstudiocode,images,executable
 
-# Permit documents folder
-!doc/**/*.pdf
-
 ### datasets ###
 # Ignore datasets folder
 datasets/
@@ -73,6 +70,8 @@ datasets/
 
 # Portable Document Format
 *.pdf
+# Permit documents folder
+!doc/**/*.pdf
 
 # X BitMap
 *.xbm
