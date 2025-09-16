@@ -28,7 +28,7 @@ def extract_plate_text(img_input):
     
     combined = ''.join(texts)
 
-    print(f"Extracted texts: {texts}, confidences: {confidences}, all: {predict}")
+    # print(f"Extracted texts: {texts}, confidences: {confidences}, all: {predict}")
 
     avg_conf = (sum(confidences) / len(confidences) / 100.0) if confidences else 0.0
 

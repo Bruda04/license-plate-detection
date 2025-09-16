@@ -21,6 +21,9 @@ def extract_plate_text(img):
     with ocr_lock:
         results = ocr.predict(img, use_textline_orientation=True)
 
+    if not results or not results[0].get('rec_texts'):
+        return "", 0.0
+
     rec_texts = results[0]['rec_texts']
     rec_scores = results[0]['rec_scores']
 
@@ -28,6 +31,9 @@ def extract_plate_text(img):
         re.sub(r'[^A-Z0-9]', '', text.upper())
         for text, score in zip(rec_texts, rec_scores) if score > 0.6
     ]
+
+    if not cleaned_texts:
+        return "", 0.0
 
     confidence = (
         sum(score for score in rec_scores if score > 0.6) / len(rec_scores)
@@ -41,4 +47,5 @@ def extract_plate_text(img):
         plate = match.group(1) + match.group(2) + match.group(3)
         return plate, confidence
     else:
-        return combined, 0.0
+        return combined, confidence if combined else 0.0
+
