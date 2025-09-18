@@ -9,18 +9,21 @@ def clear_terminal():
 if __name__ == "__main__":
     yolo_results = evaluate_yolo_models()
     clear_terminal()
+    print("YOLO Evaluation Results:")
     for result in yolo_results:
         print_yolo_metrics(result['metrics'], result['model'])
     input("Press Enter to start OCR evaluation...")
 
     ocr_results = evaluate_ocrs()
     clear_terminal()
+    print("OCR Evaluation Results:")
     for name, (char_acc, plate_acc) in ocr_results.items():
         print(f"{name}: Char accuracy: {char_acc:.4f}, Plate accuracy: {plate_acc:.4f}")
     input("Press Enter to start pipeline evaluation...")
 
     pipeline_results = evaluate_pipeline()
     clear_terminal()
+    print("Pipeline Evaluation Results:")
     for result in pipeline_results:
         print(f"{result['yolo_model']} + {result['enhancer']} + {result['ocr']}: "
               f"Plate Acc = {result['plate_accuracy']:.2f}%, Char Acc = {result['char_accuracy']:.2f}%")
