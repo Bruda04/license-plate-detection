@@ -92,7 +92,7 @@ class LicensePlateApp:
 
         # OCR selection
         tk.Label(config_frame, text="OCR:", bg="#f8f8f8").pack(anchor="w")
-        self.ocr_var = tk.StringVar(value="Tesseract")
+        self.ocr_var = tk.StringVar(value="PaddleOCR")
         ocr_choices = ["Tesseract", "PaddleOCR"]
         self.ocr_menu = ttk.Combobox(config_frame, textvariable=self.ocr_var, values=ocr_choices, state="readonly")
         self.ocr_menu.pack(fill=tk.X, pady=5)
@@ -245,7 +245,7 @@ class LicensePlateApp:
                     else:
                         enhanced_image_plate_text, te_confidence = paddle_te.extract_plate_text(enhanced_image)
 
-                    if te_confidence > 0:
+                    if te_confidence >= 0:
                         plate_text = enhanced_image_plate_text
                         self.result_label.config(text=f"Plate number: {plate_text.upper()}, Confidence: {yolo_confidence*te_confidence:.2f}")
                         self.blink_result_label()
@@ -319,11 +319,9 @@ class LicensePlateApp:
                 try:
                     plate_text, te_confidence = paddle_te.extract_plate_text(self.cv_image)
                 except Exception as e:
-                    for row in self.cv_image:
-                        print(row)
-                    plate_text, te_confidence = None, 0.0
+                    plate_text, te_confidence = None, -1
 
-            if te_confidence > 0:
+            if te_confidence >= 0:
                 self.result_label.config(text=f"Plate number: {plate_text.upper()}, Confidence: {te_confidence:.2f}")
                 self.blink_result_label()
             else:

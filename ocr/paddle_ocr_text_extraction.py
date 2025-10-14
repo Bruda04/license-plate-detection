@@ -33,11 +33,11 @@ def extract_plate_text(img):
     ]
 
     if not cleaned_texts:
-        return "", 0.0
+        return "", -1
 
     confidence = (
         sum(score for score in rec_scores if score > 0.6) / len(rec_scores)
-        if rec_scores else 0.0
+        if rec_scores else -1
     )
 
     combined = ''.join(cleaned_texts)
@@ -47,5 +47,5 @@ def extract_plate_text(img):
         plate = match.group(1) + match.group(2) + match.group(3)
         return plate, confidence
     else:
-        return combined, confidence if combined else 0.0
+        return combined, confidence if combined else -1
 
